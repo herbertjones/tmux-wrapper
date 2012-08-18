@@ -23,8 +23,8 @@ Usage
     # Finish and join the new session we just created
     join_session
 
-Example usage
--------------
+Example
+-------
 
     #!/bin/sh
 
