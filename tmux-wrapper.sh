@@ -1,27 +1,41 @@
 #!/bin/sh
 
-# Basic usage:
-# # Start new tmux session:
-# # Note: All args are optional, Use a "" to skip argument.
-# new_session "NEW_SESSION_NAME" "NEW_WINDOW_NAME" /STARTING/PATH "COMMANDS"
+## @description
 #
-# # Add a new tab and switch to it
-# # Note: All args are optional, Use a "" to skip argument.
-# new_window WINDOW_NAME /STARTING/PATH "COMMAND TO RUN"
+#  Basic usage:
+#  ============
 #
-# # Split the window
-# vsplit PANE_NAME /STARTING/PATH PERCENT_TO_SPLIT "COMMANDS TO RUN"
+#  Start new tmux session
+#  ----------------------
+#  Note: All args are optional, Use a "" to skip argument.
 #
-# # Select the top pane
-# tmux select-pane -D -t ${SESSION_NAME}:1
+#  ```new_session "NEW_SESSION_NAME" "NEW_WINDOW_NAME" /STARTING/PATH "COMMANDS"```
 #
-# # Finish and join the new session we just created
-# join_session
+#  Add a new tab and switch to it
+#  ------------------------------
+#  Note: All args are optional, Use a "" to skip argument.
+#
+#  ```new_window WINDOW_NAME /STARTING/PATH "COMMAND TO RUN"```
+#
+#  Split the window
+#  ----------------
+#  ```vsplit PANE_NAME /STARTING/PATH PERCENT_TO_SPLIT "COMMANDS TO  RUN"```
+#
+#  Select the top pane
+#  -------------------
+#  ```tmux select-pane -D -t ${SESSION_NAME}:1```
+#
+#  Finish and join the new session we just created
+#  -----------------------------------------------
+#  ```join_session```
+#
+## @file tmux-wrapper.sh
 
 
 ## Send keys to current window.
 #
 #  Automatically sends enter key after sending keys.
+#
 #  @param String  Keys to insert into window.
 send_keys()
 {
@@ -31,7 +45,7 @@ send_keys()
 ## Send keys to a specific ID for current session.
 #
 #  Same as send_keys, but the id must be passed in.
-#  @param Integer  Window ID to receive keys
+#  @param Number  Window ID to receive keys
 #  @param String  Keys to insert into window.
 send_keys_to_id()
 {
@@ -71,7 +85,7 @@ pane_right()
 statusbar()
 {
     # 1: "on" or "off"
-    tmux set-window-option -t "${SESSION_NAME}" status $1 
+    tmux set-window-option -t "${SESSION_NAME}" status $1
     #statements
 }
 
