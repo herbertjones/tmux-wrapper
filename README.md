@@ -4,7 +4,7 @@ tmux-wrapper
 A sh wrapper around tmux to setup sessions with custom layouts easily.
 
 Usage
------
+=====
 
 ```sh
 # Start new tmux session:
@@ -25,8 +25,11 @@ tmux select-pane -D -t ${SESSION_NAME}:1
 join_session
 ```
 
-Example
--------
+Examples
+========
+
+Simple Example
+--------------
 
 ```sh
 #!/bin/sh
@@ -41,6 +44,27 @@ pane_up
 new_window "etc" "/etc/"
 new_window "varlog" "/var/log/"
 
-#statusbar off
 join_session
 ```
+
+Open each directory in its own window
+-------------------------------------
+
+```sh
+#!/bin/sh
+
+BASE_PATH=~/Devel/projects
+
+# Load our tmux bash library
+. tmux-wrapper.sh
+
+BPN="`basename "${BASE_PATH}"`"
+new_session "${BPN}" "${BPN}" "${BASE_PATH}"
+for i in `find "${BASE_PATH}" -mindepth 1 -maxdepth 1 -type d`; do
+    BN="`basename "$i"`"
+    new_window "${BN}" "$i"
+done
+
+join_session
+```
+
