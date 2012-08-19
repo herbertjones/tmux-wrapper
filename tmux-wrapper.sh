@@ -205,7 +205,7 @@ rename_window()
 {
     # 1: The new window name
 
-    tmux rename-window -t "${SESSION_NAME}" "$1"
+    tmux rename-window -t "${SESSION_NAME}:${ID}" "$1"
 }
 
 clear_history()
@@ -233,8 +233,11 @@ join_session()
     # Remove any text that could be seen by scrolling up
     clear_history
 
-    # Set first window to active
-    tmux select-window -t ${SESSION_NAME}:${BASE_INDEX}
+    # Set first window to active, but do so so that a window order is
+    # created.
+    for i in `seq ${ID} -1 ${BASE_INDEX}`; do
+        tmux select-window -t ${SESSION_NAME}:$i
+    done
 
     # exec to tmux so we don't leave sh instance running
     exec tmux -2 attach-session -t ${SESSION_NAME}
